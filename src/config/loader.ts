@@ -25,7 +25,8 @@ export class ConfigLoader {
     }
 
     // Try to find default config in project
-    const defaultConfigPath = path.join(__dirname, '../..', this.DEFAULT_CONFIG_FILE_NAME); // Go up two levels from src/config to project root
+    // __dirname will be in dist/config after compilation, so go up two levels to project root
+    const defaultConfigPath = path.join(__dirname, '../..', this.DEFAULT_CONFIG_FILE_NAME);
     if (fs.existsSync(defaultConfigPath)) {
       return this.loadConfigFromFile(defaultConfigPath);
     }
