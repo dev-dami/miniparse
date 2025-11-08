@@ -1,6 +1,7 @@
-// src/processors/clean.ts
+import { PipelineComponent } from "../core/pipeline";
+import { IntentResult } from "../types";
 
-export function clean(text: string): string {
-    // Add cleaning logic here (e.g., remove punctuation)
-    return text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-}
+export const clean: PipelineComponent = (input: IntentResult): IntentResult => {
+  input.tokens = input.tokens.filter((token) => token.type !== "punct");
+  return input;
+};
