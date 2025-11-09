@@ -142,3 +142,8 @@ examples/example.js.map
 examples/example.js
 examples/example.d.ts.map
 examples/example.d.ts
+test-dist.js
+pipeline-test.js
+debug-test.js
+test.js
+simple-test.js

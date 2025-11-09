@@ -10,7 +10,6 @@ example.ts
 examples/
 
 # Development files
-src/
 *.md
 !README.MD
 !API.md
@@ -34,3 +33,7 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Configuration files
+tsconfig.json
+package-lock.json

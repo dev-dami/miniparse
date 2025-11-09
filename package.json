@@ -31,11 +31,10 @@
   },
   "homepage": "https://github.com/opensource/miniparse#readme",
   "dependencies": {
-    "typescript": "^5.9.3"
-  },
-  "devDependencies": {
+    "typescript": "^5.9.3",
     "@types/node": "^24.10.0"
   },
+  "devDependencies": {},
   "files": [
     "dist/**/*",
     "README.MD",
