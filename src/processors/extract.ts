@@ -21,24 +21,21 @@ export const extract: PipelineComponent = (
 
 function extractEmails(input: IntentResult): void {
   const text = input.text;
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  // Use non-anchored regex to match emails within larger strings
+  const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
   
-  // Split by common delimiters to find potential emails
-  const potentialEmails = text.split(/[\s\n\r\t,;()<>[\]{}]+/);
-  
-  for (let i = 0; i < potentialEmails.length; i++) {
-    const potential = potentialEmails[i];
-    if (potential && potential.includes('@') && emailPattern.test(potential)) {
-      // Find the position in the original text
-      const start = text.indexOf(potential);
-      if (start !== -1) {
-        input.entities.push({
-          type: 'email',
-          value: potential,
-          start,
-          end: start + potential.length,
-        });
-      }
+  let match;
+  while ((match = emailPattern.exec(text)) !== null) {
+    input.entities.push({
+      type: 'email',
+      value: match[0],
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    
+    // Prevent infinite loop in case regex doesn't advance
+    if (match.index === emailPattern.lastIndex) {
+      emailPattern.lastIndex++;
     }
   }
 }
