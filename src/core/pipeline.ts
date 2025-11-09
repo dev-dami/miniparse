@@ -1,6 +1,6 @@
 import type { Token } from "./Tokenizer";
 import { Tokenizer } from "./Tokenizer";
-import { clean, extract, normalize, segment } from "../processors";
+import { clean, extract, normalize, segment, extractEmailsOnly, extractPhonesOnly, extractUrlsOnly, extractNumbersOnly } from "../processors";
 import type { Entity, IntentResult } from "../types";
 import type { PipelineComponent } from "./types";
 import { ConfigLoader } from "../config/loader";
@@ -24,7 +24,15 @@ export class Pipeline {
     // Add default processors based on config
     if (this.config.pipeline.enableNormalization) this.use(normalize);
     if (this.config.pipeline.enableCleaning) this.use(clean);
-    if (this.config.pipeline.enableExtraction) this.use(extract);
+    
+    // Add extraction processors based on individual extraction config
+    if (this.config.pipeline.enableExtraction) {
+      if (this.config.extraction.extractEmails) this.use(extractEmailsOnly);
+      if (this.config.extraction.extractPhones) this.use(extractPhonesOnly);
+      if (this.config.extraction.extractUrls) this.use(extractUrlsOnly);
+      if (this.config.extraction.extractNumbers) this.use(extractNumbersOnly);
+    }
+    
     if (this.config.pipeline.enableSegmentation) this.use(segment);
   }
 
