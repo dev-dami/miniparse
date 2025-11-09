@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import yaml from 'js-yaml';
 import { defaultConfig, type MiniparseConfig } from './defaults';
 
 export class ConfigLoader {
@@ -37,13 +38,15 @@ export class ConfigLoader {
 
   private static loadConfigFromFile(filePath: string): MiniparseConfig {
     try {
-      // Since we want to avoid dependencies like js-yaml, we'll implement a basic YAML parser
-      // For now, we'll use JSON as a fallback if YAML parsing isn't available
       const fileContent = fs.readFileSync(filePath, 'utf-8');
       
-      // Basic YAML to JSON conversion for simple cases
-      const configObject = this.parseYAMLToJSON(fileContent);
+      // Parse YAML using js-yaml library for robust parsing
+      const configObject = yaml.load(fileContent) as Partial<MiniparseConfig>;
       
+      if (configObject === null || typeof configObject !== 'object') {
+        throw new Error('YAML file did not contain a valid object');
+      }
+
       // Merge with defaults to ensure all fields are present
       return this.mergeConfigWithDefaults(configObject);
     } catch (error) {

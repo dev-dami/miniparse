@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/opensource/miniparse.git"
+    "url": "git+https://github.com/dev-dami/miniparse.git"
   },
   "keywords": [
     "nlp",
@@ -27,14 +27,14 @@
   "license": "MIT",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/opensource/miniparse/issues"
+    "url": "https://github.com/dev-dami/miniparse/issues"
   },
-  "homepage": "https://github.com/opensource/miniparse#readme",
+  "homepage": "https://github.com/dev-dami/miniparse#readme",
   "dependencies": {
-    "typescript": "^5.9.3",
-    "@types/node": "^24.10.0"
+    "@types/node": "^24.10.0",
+    "js-yaml": "^4.1.0",
+    "typescript": "^5.9.3"
   },
-  "devDependencies": {},
   "files": [
     "dist/**/*",
     "README.MD",
